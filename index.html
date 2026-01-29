@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POS System - Gek Tequila</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .glass-effect {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.3s ease-out;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 h-screen overflow-hidden">
+    <!-- Header -->
+    <header
+      class="bg-[#1a1a1a] text-white h-16 flex items-center justify-between px-4 lg:px-6 fixed top-0 w-full z-50 shadow-lg"
+    >
+      <div class="flex items-center gap-4">
+        <button class="p-2 hover:bg-gray-800 rounded-lg transition-colors">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+
+        <!-- User Profile -->
+        <div class="flex items-center gap-3">
+          <div
+            class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-sm font-bold"
+          >
+            GT
+          </div>
+          <div class="hidden sm:block">
+            <h3 class="font-semibold text-sm leading-tight">Gek Tequila</h3>
+            <div class="flex items-center gap-2 text-xs text-gray-400">
+              <span>Kasir 01</span>
+              <span
+                class="bg-orange-500 text-white px-2 py-0.5 rounded-full text-[10px]"
+                >Pagi</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="flex-1 max-w-2xl mx-4 lg:mx-8">
+        <div class="relative">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="search produk"
+            class="w-full bg-white text-gray-800 rounded-full py-2.5 pl-5 pr-12 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all shadow-inner"
+          />
+          <button
+            class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-gray-500 hover:text-gray-700"
+          >
+            <i data-lucide="search" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="flex items-center gap-3 lg:gap-5">
+        <button
+          class="p-2 hover:bg-gray-800 rounded-lg transition-colors relative"
+        >
+          <i data-lucide="layout-grid" class="w-5 h-5"></i>
+        </button>
+        <button class="p-2 hover:bg-gray-800 rounded-lg transition-colors">
+          <i data-lucide="calculator" class="w-5 h-5"></i>
+        </button>
+        <button
+          class="p-2 hover:bg-gray-800 rounded-lg transition-colors relative"
+        >
+          <i data-lucide="bell" class="w-5 h-5"></i>
+          <span
+            class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"
+          ></span>
+        </button>
+        <div class="text-xl font-bold tabular-nums hidden md:block">10:10</div>
+      </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="flex pt-16 h-screen">
+      <!-- Left Sidebar -->
+      <nav
+        class="w-16 lg:w-20 bg-white border-r border-gray-200 flex flex-col items-center py-6 gap-6 fixed left-0 top-16 bottom-0 z-40 shadow-sm"
+      >
+        <button
+          class="p-3 text-gray-400 hover:text-orange-500 hover:bg-orange-50 rounded-xl transition-all group relative"
+        >
+          <i data-lucide="inbox" class="w-6 h-6"></i>
+          <span
+            class="absolute left-full ml-2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none"
+            >Inbox</span
+          >
+        </button>
+        <button
+          class="p-3 text-gray-400 hover:text-orange-500 hover:bg-orange-50 rounded-xl transition-all group relative"
+        >
+          <i data-lucide="monitor" class="w-6 h-6"></i>
+          <span
+            class="absolute left-full ml-2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none"
+            >Dashboard</span
+          >
+        </button>
+        <button
+          class="p-3 text-gray-400 hover:text-orange-500 hover:bg-orange-50 rounded-xl transition-all group relative"
+        >
+          <i data-lucide="shopping-bag" class="w-6 h-6"></i>
+          <span
+            class="absolute left-full ml-2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none"
+            >Produk</span
+          >
+        </button>
+        <button
+          class="p-3 text-orange-500 bg-orange-50 rounded-xl transition-all relative shadow-sm"
+        >
+          <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+          <span
+            id="cartBadge"
+            class="absolute -top-1 -right-1 w-5 h-5 bg-orange-500 text-white text-xs font-bold rounded-full flex items-center justify-center"
+            >3</span
+          >
+        </button>
+        <button
+          class="p-3 text-gray-400 hover:text-orange-500 hover:bg-orange-50 rounded-xl transition-all group relative"
+        >
+          <i data-lucide="store" class="w-6 h-6"></i>
+          <span
+            class="absolute left-full ml-2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none"
+            >Toko</span
+          >
+        </button>
+        <button
+          class="mt-auto p-3 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all group relative"
+        >
+          <i data-lucide="log-out" class="w-6 h-6"></i>
+          <span
+            class="absolute left-full ml-2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none"
+            >Logout</span
+          >
+        </button>
+      </nav>
+
+      <!-- Main Content -->
+      <main
+        class="flex-1 ml-16 lg:ml-20 mr-0 lg:mr-96 overflow-hidden flex flex-col"
+      >
+        <!-- Toolbar -->
+        <div
+          class="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between sticky top-0 z-30"
+        >
+          <div class="flex items-center gap-4">
+            <h1 class="text-xl font-bold text-gray-800">Semua Produk</h1>
+            <span class="text-gray-300">|</span>
+            <button
+              class="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <i data-lucide="filter" class="w-5 h-5"></i>
+            </button>
+            <div class="flex bg-gray-100 rounded-lg p-1">
+              <button class="p-1.5 bg-white rounded shadow-sm text-gray-800">
+                <i data-lucide="grid-3x3" class="w-4 h-4"></i>
+              </button>
+              <button class="p-1.5 text-gray-500 hover:text-gray-800">
+                <i data-lucide="list" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+          <div class="text-sm text-gray-500">
+            Menampilkan
+            <span id="productCount" class="font-semibold text-gray-800"
+              >12</span
+            >
+            produk
+          </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="flex-1 overflow-y-auto p-6 scrollbar-hide">
+          <div
+            id="productGrid"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+          >
+            <!-- Products will be injected here by JavaScript -->
+          </div>
+        </div>
+      </main>
+
+      <!-- Right Cart Sidebar -->
+      <aside
+        class="hidden lg:flex flex-col w-96 bg-white border-l border-gray-200 fixed right-0 top-16 bottom-0 z-40 shadow-xl"
+      >
+        <!-- Cart Header -->
+        <div
+          class="p-5 border-b border-gray-100 flex items-center justify-between bg-white"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center text-orange-600"
+            >
+              <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h2 class="font-bold text-gray-800">Keranjang Belanja</h2>
+              <p class="text-xs text-gray-500">
+                <span id="cartItemCount">3</span> item
+              </p>
+            </div>
+          </div>
+          <button
+            onclick="clearCart()"
+            class="flex items-center gap-1.5 text-xs text-red-500 hover:text-red-600 hover:bg-red-50 px-3 py-1.5 rounded-full transition-all border border-red-200 hover:border-red-300"
+          >
+            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+            <span>Hapus Semua</span>
+          </button>
+        </div>
+
+        <!-- Cart Items -->
+        <div
+          id="cartItems"
+          class="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-hide bg-gray-50"
+        >
+          <!-- Cart items will be injected here -->
+        </div>
+
+        <!-- Cart Footer -->
+        <div class="bg-[#1a1a1a] text-white p-5 space-y-3 shadow-2xl">
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between text-gray-300">
+              <span>Subtotal</span>
+              <span class="font-medium tabular-nums" id="subtotal"
+                >Rp 140.000</span
+              >
+            </div>
+            <div class="flex justify-between text-orange-400">
+              <span>Diskon Produk</span>
+              <span class="font-medium tabular-nums">Rp 0</span>
+            </div>
+            <div class="flex justify-between text-orange-400">
+              <span>Diskon Belanja</span>
+              <span class="font-medium tabular-nums">Rp 0</span>
+            </div>
+          </div>
+
+          <div class="border-t border-gray-700 pt-3 mt-3">
+            <button
+              class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-xl flex items-center justify-between px-6 transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-orange-500/30"
+            >
+              <span class="text-lg">Bayar</span>
+              <span class="text-2xl tabular-nums" id="totalAmount"
+                >Rp 140.000</span
+              >
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Mobile Cart Toggle -->
+      <button
+        onclick="toggleMobileCart()"
+        class="lg:hidden fixed bottom-6 right-6 w-14 h-14 bg-orange-500 text-white rounded-full shadow-2xl flex items-center justify-center z-50 hover:scale-110 transition-transform"
+      >
+        <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+        <span
+          id="mobileCartBadge"
+          class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center"
+          >3</span
+        >
+      </button>
+
+      <!-- Mobile Cart Modal -->
+      <div
+        id="mobileCart"
+        class="lg:hidden fixed inset-0 bg-black/50 z-50 hidden"
+        onclick="toggleMobileCart()"
+      >
+        <div
+          class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-white shadow-2xl flex flex-col animate-slide-in-right"
+          onclick="event.stopPropagation()"
+        >
+          <!-- Same structure as desktop cart but for mobile -->
+          <div
+            class="p-5 border-b border-gray-100 flex items-center justify-between"
+          >
+            <h2 class="font-bold text-gray-800 text-lg">Keranjang Belanja</h2>
+            <button
+              onclick="toggleMobileCart()"
+              class="p-2 hover:bg-gray-100 rounded-full"
+            >
+              <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+          </div>
+          <div
+            id="mobileCartItems"
+            class="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50"
+          ></div>
+          <div class="bg-[#1a1a1a] text-white p-5 space-y-3">
+            <div class="flex justify-between text-lg font-bold">
+              <span>Total</span>
+              <span id="mobileTotalAmount">Rp 140.000</span>
+            </div>
+            <button
+              class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-xl"
+            >
+              Bayar Sekarang
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Initialize Icons
+      lucide.createIcons();
+
+      // Data Produk
+      const products = [
+        {
+          id: 1,
+          name: "Laptop Gaming",
+          desc: "Laptop gaming dengan prosesor bertenaga dan grafis...",
+          price: 40000,
+          stock: 23,
+          image:
+            "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=400&h=300&fit=crop",
+        },
+        {
+          id: 2,
+          name: "Laptop Gaming Pro",
+          desc: "Laptop gaming dengan prosesor bertenaga dan grafis...",
+          price: 40000,
+          stock: 23,
+          image:
+            "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=300&fit=crop",
+        },
+        {
+          id: 3,
+          name: "Laptop Gaming Elite",
+          desc: "Laptop gaming dengan prosesor bertenaga dan grafis...",
+          price: 40000,
+          stock: 23,
+          image:
+            "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=400&h=300&fit=crop",
+        },
+        {
+          id: 4,
+          name: "Laptop Gaming Ultra",
+          desc: "Laptop gaming dengan prosesor bertenaga dan grafis...",
+          price: 40000,
+          stock: 23,
+          image:
+            "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=400&h=300&fit=crop",
+        },
+        {
+          id: 5,
+          name: "Laptop Gaming Max",
+          desc: "Laptop gaming dengan prosesor bertenaga dan grafis...",
+          price: 40000,
+          stock: 23,
+          image:
+            "https://images.unsplash.com/photo-1544731612-de7f96afe55f?w=400&h=300&fit=crop",
+        },
+        {
+          id: 6,
+          name: "Laptop Gaming Plus",
+          desc: "Laptop gaming dengan prosesor bertenaga dan grafis...",
+          price: 40000,
+          stock: 23,
+          image:
+            "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=400&h=300&fit=crop",
+        },
+        {
+          id: 7,
+          name: "Laptop Gaming S",
+          desc: "Laptop gaming dengan prosesor bertenaga dan grafis...",
+          price: 40000,
+          stock: 23,
+          image:
+            "https://images.unsplash.com/photo-1593642632823-8f78536788c6?w=400&h=300&fit=crop",
+        },
+        {
+          id: 8,
+          name: "Laptop Gaming X",
+          desc: "Laptop gaming dengan prosesor bertenaga dan grafis...",
+          price: 40000,
+          stock: 23,
+          image:
+            "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=300&fit=crop",
+        },
+        {
+          id: 9,
+          name: "Laptop Gaming Z",
+          desc: "Laptop gaming dengan prosesor bertenaga dan grafis...",
+          price: 40000,
+          stock: 23,
+          image:
+            "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
+        },
+        {
+          id: 10,
+          name: "Laptop Gaming Air",
+          desc: "Laptop gaming dengan prosesor bertenaga dan grafis...",
+          price: 40000,
+          stock: 23,
+          image:
+            "https://images.unsplash.com/photo-1587614382346-4ec70e388b28?w=400&h=300&fit=crop",
+        },
+        {
+          id: 11,
+          name: "Laptop Gaming Lite",
+          desc: "Laptop gaming dengan prosesor bertenaga dan grafis...",
+          price: 40000,
+          stock: 23,
+          image:
+            "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=300&fit=crop",
+        },
+        {
+          id: 12,
+          name: "Laptop Gaming Mini",
+          desc: "Laptop gaming dengan prosesor bertenaga dan grafis...",
+          price: 40000,
+          stock: 23,
+          image:
+            "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=300&fit=crop",
+        },
+      ];
+
+      // State Keranjang
+      let cart = [
+        {
+          id: 1,
+          name: "Product Name",
+          price: 40000,
+          qty: 1,
+          image:
+            "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=100&h=100&fit=crop",
+        },
+        {
+          id: 2,
+          name: "Product Name",
+          price: 40000,
+          qty: 1,
+          image:
+            "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=100&h=100&fit=crop",
+        },
+        {
+          id: 3,
+          name: "Product Name",
+          price: 40000,
+          qty: 1,
+          image:
+            "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=100&h=100&fit=crop",
+        },
+      ];
+
+      // Format Rupiah
+      const formatRupiah = (num) => {
+        return "Rp " + num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      };
+
+      // Render Produk
+      function renderProducts() {
+        const grid = document.getElementById("productGrid");
+        grid.innerHTML = products
+          .map(
+            (product) => `
+                <div class="group bg-[#2d2d2d] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onclick="addToCart(${product.id})">
+                    <div class="relative overflow-hidden h-40 bg-gray-700">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors"></div>
+                        <button class="absolute bottom-2 right-2 bg-orange-500 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all shadow-lg">
+                            <i data-lucide="plus" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-white font-semibold text-lg mb-1">${product.name}</h3>
+                        <p class="text-gray-400 text-xs mb-3 line-clamp-2">${product.desc}</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-white font-bold text-lg">${formatRupiah(product.price)}</span>
+                            <div class="flex items-center gap-1 bg-orange-500/20 text-orange-400 px-2 py-1 rounded-lg text-xs font-semibold">
+                                <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+                                <span>${product.stock}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+          )
+          .join("");
+        lucide.createIcons();
+      }
+
+      // Render Keranjang
+      function renderCart() {
+        const cartContainer = document.getElementById("cartItems");
+        const mobileCartContainer = document.getElementById("mobileCartItems");
+
+        const cartHTML = cart
+          .map(
+            (item, index) => `
+                <div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-3 animate-fade-in group hover:shadow-md transition-shadow">
+                    <img src="${item.image}" class="w-16 h-16 rounded-lg object-cover bg-gray-100 flex-shrink-0">
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-semibold text-gray-800 text-sm truncate">${item.name}</h4>
+                        <p class="text-xs text-gray-500 mb-2">${item.name}</p>
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-gray-900 text-sm">${formatRupiah(item.price * item.qty)}</span>
+                            <div class="flex items-center gap-2 bg-gray-100 rounded-full p-1">
+                                <button onclick="updateQty(${index}, -1)" class="w-6 h-6 rounded-full bg-white shadow flex items-center justify-center text-gray-600 hover:text-orange-500 hover:scale-110 transition-all">
+                                    <i data-lucide="minus" class="w-3 h-3"></i>
+                                </button>
+                                <span class="text-sm font-semibold w-4 text-center tabular-nums">${item.qty}</span>
+                                <button onclick="updateQty(${index}, 1)" class="w-6 h-6 rounded-full bg-white shadow flex items-center justify-center text-gray-600 hover:text-orange-500 hover:scale-110 transition-all">
+                                    <i data-lucide="plus" class="w-3 h-3"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="removeFromCart(${index})" class="text-red-400 hover:text-red-600 hover:bg-red-50 p-1.5 rounded-full transition-colors">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            `,
+          )
+          .join("");
+
+        cartContainer.innerHTML =
+          cartHTML ||
+          '<div class="flex flex-col items-center justify-center h-full text-gray-400"><i data-lucide="shopping-bag" class="w-16 h-16 mb-2 opacity-20"></i><p class="text-sm">Keranjang kosong</p></div>';
+        mobileCartContainer.innerHTML =
+          cartHTML ||
+          '<div class="flex flex-col items-center justify-center h-full text-gray-400"><i data-lucide="shopping-bag" class="w-16 h-16 mb-2 opacity-20"></i><p class="text-sm">Keranjang kosong</p></div>';
+
+        lucide.createIcons();
+        updateTotals();
+      }
+
+      // Update Quantity
+      function updateQty(index, change) {
+        cart[index].qty += change;
+        if (cart[index].qty <= 0) {
+          cart.splice(index, 1);
+        }
+        renderCart();
+      }
+
+      // Remove from Cart
+      function removeFromCart(index) {
+        cart.splice(index, 1);
+        renderCart();
+      }
+
+      // Clear Cart
+      function clearCart() {
+        if (confirm("Yakin ingin menghapus semua item?")) {
+          cart = [];
+          renderCart();
+        }
+      }
+
+      // Add to Cart
+      function addToCart(productId) {
+        const product = products.find((p) => p.id === productId);
+        const existingItem = cart.find((item) => item.id === productId);
+
+        if (existingItem) {
+          existingItem.qty++;
+        } else {
+          cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            qty: 1,
+            image: product.image,
+          });
+        }
+
+        renderCart();
+
+        // Animasi badge
+        const badge = document.getElementById("cartBadge");
+        badge.classList.add("animate-bounce");
+        setTimeout(() => badge.classList.remove("animate-bounce"), 1000);
+      }
+
+      // Update Totals
+      function updateTotals() {
+        const subtotal = cart.reduce(
+          (sum, item) => sum + item.price * item.qty,
+          0,
+        );
+        document.getElementById("subtotal").textContent =
+          formatRupiah(subtotal);
+        document.getElementById("totalAmount").textContent =
+          formatRupiah(subtotal);
+        document.getElementById("mobileTotalAmount").textContent =
+          formatRupiah(subtotal);
+        document.getElementById("cartItemCount").textContent = cart.length;
+        document.getElementById("cartBadge").textContent = cart.length;
+        document.getElementById("mobileCartBadge").textContent = cart.length;
+      }
+
+      // Toggle Mobile Cart
+      function toggleMobileCart() {
+        const mobileCart = document.getElementById("mobileCart");
+        mobileCart.classList.toggle("hidden");
+      }
+
+      // Search Filter
+      document.getElementById("searchInput").addEventListener("input", (e) => {
+        const search = e.target.value.toLowerCase();
+        const filtered = products.filter((p) =>
+          p.name.toLowerCase().includes(search),
+        );
+        const grid = document.getElementById("productGrid");
+
+        if (filtered.length === 0) {
+          grid.innerHTML =
+            '<div class="col-span-full text-center py-20 text-gray-400"><i data-lucide="search-x" class="w-16 h-16 mx-auto mb-4 opacity-20"></i><p>Produk tidak ditemukan</p></div>';
+          lucide.createIcons();
+        } else {
+          grid.innerHTML = filtered
+            .map(
+              (product) => `
+                    <div class="group bg-[#2d2d2d] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onclick="addToCart(${product.id})">
+                        <div class="relative overflow-hidden h-40 bg-gray-700">
+                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors"></div>
+                            <button class="absolute bottom-2 right-2 bg-orange-500 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all shadow-lg">
+                                <i data-lucide="plus" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-white font-semibold text-lg mb-1">${product.name}</h3>
+                            <p class="text-gray-400 text-xs mb-3 line-clamp-2">${product.desc}</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-white font-bold text-lg">${formatRupiah(product.price)}</span>
+                                <div class="flex items-center gap-1 bg-orange-500/20 text-orange-400 px-2 py-1 rounded-lg text-xs font-semibold">
+                                    <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+                                    <span>${product.stock}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+            )
+            .join("");
+          lucide.createIcons();
+        }
+        document.getElementById("productCount").textContent = filtered.length;
+      });
+
+      // Initial Render
+      renderProducts();
+      renderCart();
+    </script>
+  </body>
+</html>
