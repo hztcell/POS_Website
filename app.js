@@ -196,7 +196,7 @@ const products = [
     price: 50000,
     stock: 50,
     image:
-      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop",
+      "https://images.pexels.com/photos/1018911/pexels-photo-1018911.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
   },
   {
     id: 2,
@@ -207,7 +207,7 @@ const products = [
     price: 100000,
     stock: 40,
     image:
-      "https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=300&fit=crop",
+      "https://images.pexels.com/photos/1598507/pexels-photo-1598507.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
   },
   {
     id: 3,
@@ -218,7 +218,7 @@ const products = [
     price: 15000,
     stock: 100,
     image:
-      "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=400&h=300&fit=crop",
+      "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/70b9b3976e974dc8bd58e113a538477b_9366/Y-3_Stripes_Socks_Brown_KT3230_01_00_standard.jpg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
   },
   {
     id: 4,
@@ -229,7 +229,7 @@ const products = [
     price: 200000,
     stock: 30,
     image:
-      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop",
+      "https://images.pexels.com/photos/1456706/pexels-photo-1456706.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
   },
   {
     id: 5,
@@ -240,7 +240,7 @@ const products = [
     price: 25000,
     stock: 60,
     image:
-      "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400&h=300&fit=crop",
+      "https://images.pexels.com/photos/1878821/pexels-photo-1878821.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
   },
   {
     id: 6,
@@ -251,7 +251,7 @@ const products = [
     price: 50000,
     stock: 45,
     image:
-      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop",
+      "https://images.pexels.com/photos/2294342/pexels-photo-2294342.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
   },
   {
     id: 7,
@@ -262,7 +262,7 @@ const products = [
     price: 100000,
     stock: 35,
     image:
-      "https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=300&fit=crop",
+      "https://images.pexels.com/photos/1598507/pexels-photo-1598507.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
   },
   {
     id: 8,
@@ -273,7 +273,7 @@ const products = [
     price: 200000,
     stock: 25,
     image:
-      "https://images.unsplash.com/photo-1607522370275-f14206abe5d3?w=400&h=300&fit=crop",
+      "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
   },
   {
     id: 9,
@@ -284,7 +284,7 @@ const products = [
     price: 15000,
     stock: 80,
     image:
-      "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=400&h=300&fit=crop",
+      "https://static.nike.com/a/images/t_web_pdp_535_v2/f_auto,u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/bivbbt0saypjw0mimm9x/U+NK+EVERYDAY+LTWT+CREW+3PR.png?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
   },
   {
     id: 10,
@@ -295,7 +295,7 @@ const products = [
     price: 25000,
     stock: 40,
     image:
-      "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400&h=300&fit=crop",
+      "https://images.pexels.com/photos/1124465/pexels-photo-1124465.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
   },
   {
     id: 11,
@@ -306,7 +306,7 @@ const products = [
     price: 50000,
     stock: 55,
     image:
-      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop",
+      "https://images.pexels.com/photos/991509/pexels-photo-991509.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
   },
   {
     id: 12,
@@ -317,7 +317,73 @@ const products = [
     price: 200000,
     stock: 20,
     image:
-      "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400&h=300&fit=crop",
+      "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+  },
+  {
+    id: 13,
+    name: "Sepatu Vans",
+    category: "Sepatu",
+    brand: "Vans",
+    desc: "Vans Old Skool Classic Black",
+    price: 180000,
+    stock: 15,
+    image:
+      "https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+  },
+  {
+    id: 14,
+    name: "Baju Under Armour",
+    category: "Baju",
+    brand: "Under Armour",
+    desc: "Kaos compression Under Armour",
+    price: 65000,
+    stock: 25,
+    image:
+      "https://i.pinimg.com/736x/06/31/47/063147912776b12dddb43251f93d5c46.jpg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+  },
+  {
+    id: 15,
+    name: "Celana Dickies",
+    category: "Celana",
+    brand: "Dickies",
+    desc: "Celana kerja Dickies 874 original",
+    price: 120000,
+    stock: 30,
+    image:
+      "https://dickies.co.id/odext/web/content/product.template/256761/image_1920/img_product_256761.png?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+  },
+  {
+    id: 16,
+    name: "Sepatu New Balance",
+    category: "Sepatu",
+    brand: "New Balance",
+    desc: "Sepatu lifestyle New Balance 574",
+    price: 220000,
+    stock: 12,
+    image:
+      "https://images.pexels.com/photos/2529146/pexels-photo-2529146.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+  },
+  {
+    id: 17,
+    name: "Topi New Era",
+    category: "Topi",
+    brand: "New Era",
+    desc: "Topi MLB New York Yankees",
+    price: 45000,
+    stock: 20,
+    image:
+      "https://images.pexels.com/photos/844867/pexels-photo-844867.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+  },
+  {
+    id: 18,
+    name: "Kaos Kaki Vans",
+    category: "Kaos Kaki",
+    brand: "Vans",
+    desc: "Kaos kaki Vans Checkboard",
+    price: 18000,
+    stock: 50,
+    image:
+      "https://images.pexels.com/photos/1032110/pexels-photo-1032110.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
   },
 ];
 
