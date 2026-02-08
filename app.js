@@ -46,7 +46,7 @@ window.onload = function () {
 };
 
 function handleLogin(e) {
-  e.preventDefault();
+  if (e) e.preventDefault();
 
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
@@ -84,10 +84,10 @@ function handleLogin(e) {
       btnLoader.classList.add("hidden");
       btnIcon.classList.remove("hidden");
 
-      errorDiv.parentElement.classList.add("animate-bounce-in");
+      errorDiv.parentElement.classList.add("animate-pulse");
       setTimeout(() => {
-        errorDiv.parentElement.classList.remove("animate-bounce-in");
-      }, 600);
+        errorDiv.parentElement.classList.remove("animate-pulse");
+      }, 500);
     }
   }, 1000);
 }
@@ -132,21 +132,27 @@ function logout() {
 
 function togglePassword() {
   const passwordInput = document.getElementById("password");
-  const eyeIcon = document.getElementById("eyeIcon");
+  const eyeIcon = document.getElementById("eye-icon");
 
   if (passwordInput.type === "password") {
     passwordInput.type = "text";
-    eyeIcon.setAttribute("data-lucide", "eye-off");
+    eyeIcon.setAttribute("data-lucide", "eye");
   } else {
     passwordInput.type = "password";
-    eyeIcon.setAttribute("data-lucide", "eye");
+    eyeIcon.setAttribute("data-lucide", "eye-closed");
   }
   lucide.createIcons();
+}
 
-  eyeIcon.parentElement.classList.add("animate-bounce-in");
-  setTimeout(() => {
-    eyeIcon.parentElement.classList.remove("animate-bounce-in");
-  }, 600);
+function toggleRemember(checkbox) {
+  const container = document.getElementById("remember-icon-container");
+  const isChecked = checkbox.checked;
+
+  container.innerHTML = isChecked
+    ? '<i data-lucide="circle-check-big" class="w-5 h-5 text-orange-500"></i>'
+    : '<i data-lucide="circle" class="w-5 h-5 text-gray-500"></i>';
+
+  lucide.createIcons();
 }
 
 function showForgotPassword() {
@@ -175,7 +181,6 @@ function initPOS() {
   cartOpen = false;
   document.getElementById("cartSidebar").classList.add("hidden");
   document.getElementById("cartSidebar").classList.remove("flex");
-  document.getElementById("floatingCartButton").classList.remove("hidden");
 }
 
 function updateClock() {
@@ -196,7 +201,7 @@ const products = [
     price: 50000,
     stock: 50,
     image:
-      "https://images.pexels.com/photos/1018911/pexels-photo-1018911.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop",
   },
   {
     id: 2,
@@ -207,7 +212,7 @@ const products = [
     price: 100000,
     stock: 40,
     image:
-      "https://images.pexels.com/photos/1598507/pexels-photo-1598507.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=300&fit=crop",
   },
   {
     id: 3,
@@ -218,7 +223,7 @@ const products = [
     price: 15000,
     stock: 100,
     image:
-      "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/70b9b3976e974dc8bd58e113a538477b_9366/Y-3_Stripes_Socks_Brown_KT3230_01_00_standard.jpg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=400&h=300&fit=crop",
   },
   {
     id: 4,
@@ -229,7 +234,7 @@ const products = [
     price: 200000,
     stock: 30,
     image:
-      "https://images.pexels.com/photos/1456706/pexels-photo-1456706.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop",
   },
   {
     id: 5,
@@ -240,7 +245,7 @@ const products = [
     price: 25000,
     stock: 60,
     image:
-      "https://images.pexels.com/photos/1878821/pexels-photo-1878821.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400&h=300&fit=crop",
   },
   {
     id: 6,
@@ -251,7 +256,7 @@ const products = [
     price: 50000,
     stock: 45,
     image:
-      "https://images.pexels.com/photos/2294342/pexels-photo-2294342.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop",
   },
   {
     id: 7,
@@ -262,7 +267,7 @@ const products = [
     price: 100000,
     stock: 35,
     image:
-      "https://images.pexels.com/photos/1598507/pexels-photo-1598507.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=300&fit=crop",
   },
   {
     id: 8,
@@ -273,7 +278,7 @@ const products = [
     price: 200000,
     stock: 25,
     image:
-      "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1607522370275-f14206abe5d3?w=400&h=300&fit=crop",
   },
   {
     id: 9,
@@ -284,7 +289,7 @@ const products = [
     price: 15000,
     stock: 80,
     image:
-      "https://static.nike.com/a/images/t_web_pdp_535_v2/f_auto,u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/bivbbt0saypjw0mimm9x/U+NK+EVERYDAY+LTWT+CREW+3PR.png?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=400&h=300&fit=crop",
   },
   {
     id: 10,
@@ -295,7 +300,7 @@ const products = [
     price: 25000,
     stock: 40,
     image:
-      "https://images.pexels.com/photos/1124465/pexels-photo-1124465.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400&h=300&fit=crop",
   },
   {
     id: 11,
@@ -306,7 +311,7 @@ const products = [
     price: 50000,
     stock: 55,
     image:
-      "https://images.pexels.com/photos/991509/pexels-photo-991509.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop",
   },
   {
     id: 12,
@@ -317,73 +322,7 @@ const products = [
     price: 200000,
     stock: 20,
     image:
-      "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-  },
-  {
-    id: 13,
-    name: "Sepatu Vans",
-    category: "Sepatu",
-    brand: "Vans",
-    desc: "Vans Old Skool Classic Black",
-    price: 180000,
-    stock: 15,
-    image:
-      "https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-  },
-  {
-    id: 14,
-    name: "Baju Under Armour",
-    category: "Baju",
-    brand: "Under Armour",
-    desc: "Kaos compression Under Armour",
-    price: 65000,
-    stock: 25,
-    image:
-      "https://i.pinimg.com/736x/06/31/47/063147912776b12dddb43251f93d5c46.jpg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-  },
-  {
-    id: 15,
-    name: "Celana Dickies",
-    category: "Celana",
-    brand: "Dickies",
-    desc: "Celana kerja Dickies 874 original",
-    price: 120000,
-    stock: 30,
-    image:
-      "https://dickies.co.id/odext/web/content/product.template/256761/image_1920/img_product_256761.png?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-  },
-  {
-    id: 16,
-    name: "Sepatu New Balance",
-    category: "Sepatu",
-    brand: "New Balance",
-    desc: "Sepatu lifestyle New Balance 574",
-    price: 220000,
-    stock: 12,
-    image:
-      "https://images.pexels.com/photos/2529146/pexels-photo-2529146.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-  },
-  {
-    id: 17,
-    name: "Topi New Era",
-    category: "Topi",
-    brand: "New Era",
-    desc: "Topi MLB New York Yankees",
-    price: 45000,
-    stock: 20,
-    image:
-      "https://images.pexels.com/photos/844867/pexels-photo-844867.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-  },
-  {
-    id: 18,
-    name: "Kaos Kaki Vans",
-    category: "Kaos Kaki",
-    brand: "Vans",
-    desc: "Kaos kaki Vans Checkboard",
-    price: 18000,
-    stock: 50,
-    image:
-      "https://images.pexels.com/photos/1032110/pexels-photo-1032110.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400&h=300&fit=crop",
   },
 ];
 
@@ -401,46 +340,33 @@ function toggleCart() {
   cartOpen = !cartOpen;
   const sidebar = document.getElementById("cartSidebar");
   const mainContent = document.getElementById("mainContent");
-  const floatingCartButton = document.getElementById("floatingCartButton");
 
   if (cartOpen) {
     sidebar.classList.remove("hidden");
     sidebar.classList.add("flex");
-    sidebar.classList.remove("slide-out-left");
-    sidebar.classList.add("slide-in-right");
     mainContent.classList.add("lg:mr-[420px]");
-    floatingCartButton.classList.add("hidden");
   } else {
-    sidebar.classList.remove("slide-in-right");
-    sidebar.classList.add("slide-out-left");
-    setTimeout(() => {
-      sidebar.classList.add("hidden");
-      sidebar.classList.remove("flex");
-    }, 300);
+    sidebar.classList.add("hidden");
+    sidebar.classList.remove("flex");
     mainContent.classList.remove("lg:mr-[420px]");
-    floatingCartButton.classList.remove("hidden");
   }
 }
 
 function toggleFilterDropdown() {
   const dropdown = document.getElementById("filterDropdown");
   dropdown.classList.toggle("hidden");
-
-  if (!dropdown.classList.contains("hidden")) {
-    dropdown.classList.add("animate-scale-in");
-  }
 }
 
 function setViewMode(mode) {
   viewMode = mode;
   document.getElementById("gridBtn").className =
     mode === "grid"
-      ? "p-1.5 bg-white rounded shadow-sm text-gray-800 transition-all-smooth animate-scale-in"
-      : "p-1.5 text-gray-500 hover:text-gray-800 transition-all-smooth";
+      ? "p-1.5 bg-white rounded shadow-sm text-gray-800 transition-all"
+      : "p-1.5 text-gray-500 hover:text-gray-800 transition-all";
   document.getElementById("listBtn").className =
     mode === "list"
-      ? "p-1.5 bg-white rounded shadow-sm text-gray-800 transition-all-smooth animate-scale-in"
-      : "p-1.5 text-gray-500 hover:text-gray-800 transition-all-smooth";
+      ? "p-1.5 bg-white rounded shadow-sm text-gray-800 transition-all"
+      : "p-1.5 text-gray-500 hover:text-gray-800 transition-all";
   renderProducts();
 }
 
@@ -448,12 +374,6 @@ function applyFilters() {
   currentFilters.category = document.getElementById("categoryFilter").value;
   currentFilters.brand = document.getElementById("brandFilter").value;
   renderProducts();
-
-  const productGrid = document.getElementById("productGrid");
-  productGrid.classList.add("animate-fade-in");
-  setTimeout(() => {
-    productGrid.classList.remove("animate-fade-in");
-  }, 500);
 }
 
 function updateQtyManual(index, newValue) {
@@ -488,20 +408,14 @@ function toggleMember() {
     knobSidebar?.classList.add("translate-x-6");
     if (statusTextSidebar)
       statusTextSidebar.textContent = "Member (Diskon 10%)";
-    if (benefitSidebar) {
-      benefitSidebar.style.display = "block";
-      benefitSidebar.classList.add("animate-fade-in");
-    }
+    if (benefitSidebar) benefitSidebar.style.display = "block";
   } else {
     toggleSidebar?.classList.remove("bg-orange-500");
     toggleSidebar?.classList.add("bg-gray-300");
     knobSidebar?.classList.remove("translate-x-6");
     knobSidebar?.classList.add("translate-x-1");
     if (statusTextSidebar) statusTextSidebar.textContent = "Non Member";
-    if (benefitSidebar) {
-      benefitSidebar.style.display = "none";
-      benefitSidebar.classList.remove("animate-fade-in");
-    }
+    if (benefitSidebar) benefitSidebar.style.display = "none";
   }
 
   updateTotals();
@@ -596,7 +510,7 @@ function renderProducts() {
 
   if (filtered.length === 0) {
     grid.innerHTML =
-      '<div class="col-span-full text-center py-20 text-gray-400 animate-fade-in"><i data-lucide="search-x" class="w-16 h-16 mx-auto mb-4 opacity-20 animate-float"></i><p>Produk tidak ditemukan</p></div>';
+      '<div class="col-span-full text-center py-20 text-gray-400"><i data-lucide="search-x" class="w-16 h-16 mx-auto mb-4 opacity-20"></i><p>Produk tidak ditemukan</p></div>';
     lucide.createIcons();
     document.getElementById("productCount").textContent = 0;
     return;
@@ -606,29 +520,29 @@ function renderProducts() {
 
   if (viewMode === "grid") {
     grid.className =
-      "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 animate-fade-in";
+      "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4";
     grid.innerHTML = filtered
       .map(
-        (product, index) => `
-            <div class="group bg-[#2d2d2d] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all-smooth hover-lift cursor-pointer animate-fade-in-up" style="animation-delay: ${index * 50}ms" onclick="addToCart(${product.id})">
-              <div class="relative overflow-hidden h-40 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 animate-shimmer">
-                <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover transition-transform-smooth duration-500 group-hover:scale-110">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity-smooth duration-500"></div>
-                <div class="absolute top-2 left-2 bg-black/50 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full transition-transform-smooth group-hover:scale-105">
+        (product) => `
+            <div class="group bg-[#2d2d2d] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onclick="addToCart(${product.id})">
+              <div class="relative overflow-hidden h-40 bg-gray-700">
+                <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors"></div>
+                <div class="absolute top-2 left-2 bg-black/50 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full">
                   ${product.brand}
                 </div>
-                <button class="absolute bottom-2 right-2 bg-orange-500 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transform -translate-y-2 group-hover:translate-y-0 transition-all-smooth duration-300 shadow-lg hover-glow">
+                <button class="absolute bottom-2 right-2 bg-orange-500 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all shadow-lg">
                   <i data-lucide="plus" class="w-5 h-5"></i>
                 </button>
               </div>
               <div class="p-4">
                 <div class="flex justify-between items-start mb-1">
-                  <h3 class="text-white font-semibold text-lg mb-1 group-hover:text-orange-300 transition-colors">${product.name}</h3>
+                  <h3 class="text-white font-semibold text-lg mb-1">${product.name}</h3>
                 </div>
                 <p class="text-gray-400 text-xs mb-3 line-clamp-2">${product.desc}</p>
                 <div class="flex items-center justify-between">
-                  <span class="text-white font-bold text-lg group-hover:text-orange-400 transition-colors">${formatRupiah(product.price)}</span>
-                  <div class="flex items-center gap-1 bg-orange-500/20 text-orange-400 px-2 py-1 rounded-lg text-xs font-semibold group-hover:bg-orange-500/30 transition-all-smooth">
+                  <span class="text-white font-bold text-lg">${formatRupiah(product.price)}</span>
+                  <div class="flex items-center gap-1 bg-orange-500/20 text-orange-400 px-2 py-1 rounded-lg text-xs font-semibold">
                     <i data-lucide="layers" class="w-3.5 h-3.5"></i>
                     <span>${product.stock}</span>
                   </div>
@@ -639,33 +553,33 @@ function renderProducts() {
       )
       .join("");
   } else {
-    grid.className = "space-y-3 animate-fade-in";
+    grid.className = "space-y-3";
     grid.innerHTML = filtered
       .map(
-        (product, index) => `
-            <div class="group bg-[#2d2d2d] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all-smooth cursor-pointer flex animate-fade-in-up" style="animation-delay: ${index * 50}ms" onclick="addToCart(${product.id})">
-              <div class="relative overflow-hidden w-32 h-32 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 animate-shimmer flex-shrink-0">
-                <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover transition-transform-smooth duration-500 group-hover:scale-110">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity-smooth duration-500"></div>
-                <div class="absolute top-2 left-2 bg-black/50 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full transition-transform-smooth group-hover:scale-105">
+        (product) => `
+            <div class="group bg-[#2d2d2d] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer flex" onclick="addToCart(${product.id})">
+              <div class="relative overflow-hidden w-32 h-32 bg-gray-700 flex-shrink-0">
+                <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors"></div>
+                <div class="absolute top-2 left-2 bg-black/50 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full">
                   ${product.brand}
                 </div>
               </div>
               <div class="p-4 flex-1 flex flex-col justify-between">
                 <div>
                   <div class="flex justify-between items-start mb-1">
-                    <h3 class="text-white font-semibold text-lg mb-1 group-hover:text-orange-300 transition-colors">${product.name}</h3>
+                    <h3 class="text-white font-semibold text-lg mb-1">${product.name}</h3>
                   </div>
                   <p class="text-gray-400 text-xs mb-2 line-clamp-2">${product.desc}</p>
                 </div>
                 <div class="flex items-center justify-between">
-                  <span class="text-white font-bold text-lg group-hover:text-orange-400 transition-colors">${formatRupiah(product.price)}</span>
+                  <span class="text-white font-bold text-lg">${formatRupiah(product.price)}</span>
                   <div class="flex items-center gap-2">
-                    <div class="flex items-center gap-1 bg-orange-500/20 text-orange-400 px-2 py-1 rounded-lg text-xs font-semibold group-hover:bg-orange-500/30 transition-all-smooth">
+                    <div class="flex items-center gap-1 bg-orange-500/20 text-orange-400 px-2 py-1 rounded-lg text-xs font-semibold">
                       <i data-lucide="layers" class="w-3.5 h-3.5"></i>
                       <span>Stok: ${product.stock}</span>
                     </div>
-                    <button class="bg-orange-500 text-white p-2 rounded-full shadow-lg hover-glow transition-all-smooth">
+                    <button class="bg-orange-500 text-white p-2 rounded-full shadow-lg">
                       <i data-lucide="plus" class="w-4 h-4"></i>
                     </button>
                   </div>
@@ -685,8 +599,8 @@ function renderCart() {
 
   if (cart.length === 0) {
     const emptyHTML = `
-            <div class="flex flex-col items-center justify-center h-full text-gray-400 animate-fade-in">
-              <i data-lucide="shopping-bag" class="w-16 h-16 mb-2 opacity-20 animate-float"></i>
+            <div class="flex flex-col items-center justify-center h-full text-gray-400">
+              <i data-lucide="shopping-bag" class="w-16 h-16 mb-2 opacity-20"></i>
               <p class="text-sm">Keranjang kosong</p>
               <p class="text-xs mt-1">Klik produk untuk menambahkan</p>
             </div>
@@ -700,23 +614,23 @@ function renderCart() {
   const cartHTML = cart
     .map(
       (item, index) => `
-          <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-start gap-3 animate-fade-in-up hover:shadow-md transition-all-smooth group hover-lift" style="animation-delay: ${index * 50}ms">
-            <img src="${item.image}" class="w-16 h-16 rounded-lg object-cover bg-gray-100 flex-shrink-0 mt-1 transition-transform-smooth group-hover:scale-105">
+          <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-start gap-3 animate-fade-in group hover:shadow-md transition-shadow relative">
+            <img src="${item.image}" class="w-16 h-16 rounded-lg object-cover bg-gray-100 flex-shrink-0 mt-1">
             <div class="flex-1 min-w-0">
               <div class="flex items-start justify-between gap-2 mb-1">
                 <div>
-                  <h4 class="font-semibold text-gray-800 text-sm leading-tight break-words group-hover:text-orange-600 transition-colors">${item.name}</h4>
+                  <h4 class="font-semibold text-gray-800 text-sm leading-tight break-words">${item.name}</h4>
                   <p class="text-xs text-gray-400">${item.brand}</p>
                 </div>
-                <button onclick="removeFromCart(${index})" class="text-red-400 hover:text-red-600 hover:bg-red-50 p-1.5 rounded-full transition-all-smooth flex-shrink-0 -mr-1 -mt-1 animate-fade-in animation-delay-${index * 50}" title="Hapus item">
+                <button onclick="removeFromCart(${index})" class="text-red-400 hover:text-red-600 hover:bg-red-50 p-1.5 rounded-full transition-colors flex-shrink-0 -mr-1 -mt-1" title="Hapus item">
                   <i data-lucide="x" class="w-4 h-4"></i>
                 </button>
               </div>
               <p class="text-xs text-gray-500 mb-3">${formatRupiah(item.price)} / pcs</p>
               <div class="flex items-center justify-between">
-                <span class="font-bold text-orange-600 text-sm transition-all-smooth">${formatRupiah(item.price * item.qty)}</span>
-                <div class="flex items-center gap-2 bg-gray-100 rounded-full p-1 group-hover:bg-gray-200 transition-all-smooth">
-                  <button onclick="updateQty(${index}, -1)" class="w-7 h-7 rounded-full bg-white shadow flex items-center justify-center text-gray-600 hover:text-orange-500 hover:scale-110 transition-all-smooth">
+                <span class="font-bold text-orange-600 text-sm">${formatRupiah(item.price * item.qty)}</span>
+                <div class="flex items-center gap-2 bg-gray-100 rounded-full p-1">
+                  <button onclick="updateQty(${index}, -1)" class="w-7 h-7 rounded-full bg-white shadow flex items-center justify-center text-gray-600 hover:text-orange-500 hover:scale-110 transition-all">
                     <i data-lucide="minus" class="w-3 h-3"></i>
                   </button>
                   <input 
@@ -726,10 +640,10 @@ function renderCart() {
                     max="${item.stock || 999}"
                     onchange="updateQtyManual(${index}, this.value)"
                     onkeyup="if(event.key==='Enter') this.blur()"
-                    class="w-10 h-7 text-center text-sm font-semibold bg-transparent border-none focus:outline-none focus:ring-0 tabular-nums text-gray-800 transition-all-smooth"
+                    class="w-10 h-7 text-center text-sm font-semibold bg-transparent border-none focus:outline-none focus:ring-0 tabular-nums text-gray-800"
                     style="-moz-appearance: textfield; appearance: textfield;"
                   />
-                  <button onclick="updateQty(${index}, 1)" class="w-7 h-7 rounded-full bg-white shadow flex items-center justify-center text-gray-600 hover:text-orange-500 hover:scale-110 transition-all-smooth">
+                  <button onclick="updateQty(${index}, 1)" class="w-7 h-7 rounded-full bg-white shadow flex items-center justify-center text-gray-600 hover:text-orange-500 hover:scale-110 transition-all">
                     <i data-lucide="plus" class="w-3 h-3"></i>
                   </button>
                 </div>
@@ -758,32 +672,11 @@ function updateQty(index, change) {
     cart.splice(index, 1);
   }
   renderCart();
-
-  const qtyInput = document.querySelector(
-    `#cartItems > div:nth-child(${index + 1}) input[type="number"]`,
-  );
-  if (qtyInput) {
-    qtyInput.classList.add("animate-scale-in");
-    setTimeout(() => {
-      qtyInput.classList.remove("animate-scale-in");
-    }, 300);
-  }
 }
 
 function removeFromCart(index) {
-  const itemDiv = document.querySelector(
-    `#cartItems > div:nth-child(${index + 1})`,
-  );
-  if (itemDiv) {
-    itemDiv.classList.add("slide-out-left");
-    setTimeout(() => {
-      cart.splice(index, 1);
-      renderCart();
-    }, 300);
-  } else {
-    cart.splice(index, 1);
-    renderCart();
-  }
+  cart.splice(index, 1);
+  renderCart();
 }
 
 function clearCart() {
@@ -820,14 +713,6 @@ function addToCart(productId) {
 
   renderCart();
   updateCartBadges();
-
-  const productCard = event.target.closest(".group");
-  if (productCard) {
-    productCard.classList.add("animate-bounce-in");
-    setTimeout(() => {
-      productCard.classList.remove("animate-bounce-in");
-    }, 600);
-  }
 }
 
 function updateCartBadges() {
@@ -836,15 +721,8 @@ function updateCartBadges() {
   document.getElementById("cartBadgeFloating").textContent = count;
 
   const badge = document.getElementById("cartBadge");
-  const floatingBadge = document.getElementById("cartBadgeFloating");
-
-  badge.classList.add("animate-bounce-in");
-  floatingBadge.classList.add("animate-bounce-in");
-
-  setTimeout(() => {
-    badge.classList.remove("animate-bounce-in");
-    floatingBadge.classList.remove("animate-bounce-in");
-  }, 600);
+  badge.classList.add("animate-bounce");
+  setTimeout(() => badge.classList.remove("animate-bounce"), 1000);
 }
 
 function updateTotals() {
@@ -861,20 +739,9 @@ function updateTotals() {
     shoppingDiscount: document.getElementById("shoppingDiscountSidebar"),
   };
 
-  if (elements.subtotal) {
+  if (elements.subtotal)
     elements.subtotal.textContent = formatRupiah(calc.subtotal);
-    elements.subtotal.parentElement.classList.add("animate-scale-in");
-    setTimeout(
-      () =>
-        elements.subtotal.parentElement.classList.remove("animate-scale-in"),
-      300,
-    );
-  }
-  if (elements.total) {
-    elements.total.textContent = formatRupiah(calc.total);
-    elements.total.classList.add("animate-bounce-in");
-    setTimeout(() => elements.total.classList.remove("animate-bounce-in"), 600);
-  }
+  if (elements.total) elements.total.textContent = formatRupiah(calc.total);
   if (elements.count) elements.count.textContent = totalQty;
   if (elements.qtyDiscount)
     elements.qtyDiscount.textContent = formatRupiah(calc.qtyDiscount);
@@ -883,30 +750,12 @@ function updateTotals() {
   if (elements.shoppingDiscount)
     elements.shoppingDiscount.textContent = formatRupiah(calc.shoppingDiscount);
 
-  const qtyRow = document.getElementById("qtyDiscountRowSidebar");
-  const memberRow = document.getElementById("memberDiscountRowSidebar");
-  const shoppingRow = document.getElementById("shoppingDiscountRowSidebar");
-
-  if (calc.qtyDiscount > 0 && qtyRow.style.display === "none") {
-    qtyRow.style.display = "flex";
-    qtyRow.classList.add("animate-fade-in-up");
-  } else if (calc.qtyDiscount === 0) {
-    qtyRow.style.display = "none";
-  }
-
-  if (calc.memberDiscount > 0 && memberRow.style.display === "none") {
-    memberRow.style.display = "flex";
-    memberRow.classList.add("animate-fade-in-up");
-  } else if (calc.memberDiscount === 0) {
-    memberRow.style.display = "none";
-  }
-
-  if (calc.shoppingDiscount > 0 && shoppingRow.style.display === "none") {
-    shoppingRow.style.display = "flex";
-    shoppingRow.classList.add("animate-fade-in-up");
-  } else if (calc.shoppingDiscount === 0) {
-    shoppingRow.style.display = "none";
-  }
+  document.getElementById("qtyDiscountRowSidebar").style.display =
+    calc.qtyDiscount > 0 ? "flex" : "none";
+  document.getElementById("memberDiscountRowSidebar").style.display =
+    calc.memberDiscount > 0 ? "flex" : "none";
+  document.getElementById("shoppingDiscountRowSidebar").style.display =
+    calc.shoppingDiscount > 0 ? "flex" : "none";
 
   updateCartBadges();
   calculateChange();
@@ -925,12 +774,11 @@ function calculateChange() {
 
   if (payment > 0) {
     changeRow.style.display = "flex";
-    changeRow.classList.add("animate-fade-in-up");
     changeAmount.textContent = formatRupiah(change);
     changeAmount.className =
       change >= 0
-        ? "font-bold text-green-400 tabular-nums animate-scale-in"
-        : "font-bold text-red-400 tabular-nums animate-scale-in";
+        ? "font-bold text-green-400 tabular-nums"
+        : "font-bold text-red-400 tabular-nums";
   } else {
     changeRow.style.display = "none";
   }
@@ -969,17 +817,9 @@ function processPayment() {
 
   alert(message);
 
-  const paymentBtn = document.querySelector(
-    'button[onclick="processPayment()"]',
-  );
-  paymentBtn.classList.add("animate-bounce-in");
-
-  setTimeout(() => {
-    cart = [];
-    document.getElementById("paymentInput").value = "";
-    renderCart();
-    paymentBtn.classList.remove("animate-bounce-in");
-  }, 600);
+  cart = [];
+  document.getElementById("paymentInput").value = "";
+  renderCart();
 }
 
 document.addEventListener("click", function (e) {
@@ -994,11 +834,7 @@ document.addEventListener("click", function (e) {
       !filterBtn.onclick.toString().includes("toggleFilterDropdown"))
   ) {
     if (!filterDropdown.contains(e.target)) {
-      filterDropdown.classList.add("slide-out-left");
-      setTimeout(() => {
-        filterDropdown.classList.add("hidden");
-        filterDropdown.classList.remove("slide-out-left");
-      }, 300);
+      filterDropdown.classList.add("hidden");
     }
   }
 });
@@ -1028,33 +864,33 @@ if (searchInput) {
 
     if (filtered.length === 0) {
       grid.innerHTML =
-        '<div class="col-span-full text-center py-20 text-gray-400 animate-fade-in"><i data-lucide="search-x" class="w-16 h-16 mx-auto mb-4 opacity-20 animate-float"></i><p>Produk tidak ditemukan</p></div>';
+        '<div class="col-span-full text-center py-20 text-gray-400"><i data-lucide="search-x" class="w-16 h-16 mx-auto mb-4 opacity-20"></i><p>Produk tidak ditemukan</p></div>';
       lucide.createIcons();
       return;
     }
 
     if (viewMode === "grid") {
       grid.className =
-        "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 animate-fade-in";
+        "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4";
       grid.innerHTML = filtered
         .map(
-          (product, index) => `
-              <div class="group bg-[#2d2d2d] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all-smooth hover-lift cursor-pointer animate-fade-in-up" style="animation-delay: ${index * 50}ms" onclick="addToCart(${product.id})">
-                <div class="relative overflow-hidden h-40 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 animate-shimmer">
-                  <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover transition-transform-smooth duration-500 group-hover:scale-110">
-                  <div class="absolute top-2 left-2 bg-black/50 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full transition-transform-smooth group-hover:scale-105">${product.brand}</div>
-                  <button class="absolute bottom-2 right-2 bg-orange-500 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transform -translate-y-2 group-hover:translate-y-0 transition-all-smooth duration-300 shadow-lg hover-glow">
+          (product) => `
+              <div class="group bg-[#2d2d2d] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onclick="addToCart(${product.id})">
+                <div class="relative overflow-hidden h-40 bg-gray-700">
+                  <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                  <div class="absolute top-2 left-2 bg-black/50 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full">${product.brand}</div>
+                  <button class="absolute bottom-2 right-2 bg-orange-500 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all shadow-lg">
                     <i data-lucide="plus" class="w-5 h-5"></i>
                   </button>
                 </div>
                 <div class="p-4">
                   <div class="flex justify-between items-start mb-1">
-                    <h3 class="text-white font-semibold text-lg group-hover:text-orange-300 transition-colors">${product.name}</h3>
+                    <h3 class="text-white font-semibold text-lg">${product.name}</h3>
                   </div>
                   <p class="text-gray-400 text-xs mb-3 line-clamp-2">${product.desc}</p>
                   <div class="flex items-center justify-between">
-                    <span class="text-white font-bold text-lg group-hover:text-orange-400 transition-colors">${formatRupiah(product.price)}</span>
-                    <div class="flex items-center gap-1 bg-orange-500/20 text-orange-400 px-2 py-1 rounded-lg text-xs font-semibold group-hover:bg-orange-500/30 transition-all-smooth">
+                    <span class="text-white font-bold text-lg">${formatRupiah(product.price)}</span>
+                    <div class="flex items-center gap-1 bg-orange-500/20 text-orange-400 px-2 py-1 rounded-lg text-xs font-semibold">
                       <i data-lucide="layers" class="w-3.5 h-3.5"></i>
                       <span>${product.stock}</span>
                     </div>
@@ -1065,30 +901,30 @@ if (searchInput) {
         )
         .join("");
     } else {
-      grid.className = "space-y-3 animate-fade-in";
+      grid.className = "space-y-3";
       grid.innerHTML = filtered
         .map(
-          (product, index) => `
-              <div class="group bg-[#2d2d2d] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all-smooth cursor-pointer flex animate-fade-in-up" style="animation-delay: ${index * 50}ms" onclick="addToCart(${product.id})">
-                <div class="relative overflow-hidden w-32 h-32 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 animate-shimmer flex-shrink-0">
-                  <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover transition-transform-smooth duration-500 group-hover:scale-110">
-                  <div class="absolute top-2 left-2 bg-black/50 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full transition-transform-smooth group-hover:scale-105">${product.brand}</div>
+          (product) => `
+              <div class="group bg-[#2d2d2d] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer flex" onclick="addToCart(${product.id})">
+                <div class="relative overflow-hidden w-32 h-32 bg-gray-700 flex-shrink-0">
+                  <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                  <div class="absolute top-2 left-2 bg-black/50 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full">${product.brand}</div>
                 </div>
                 <div class="p-4 flex-1 flex flex-col justify-between">
                   <div>
                     <div class="flex justify-between items-start mb-1">
-                      <h3 class="text-white font-semibold text-lg group-hover:text-orange-300 transition-colors">${product.name}</h3>
+                      <h3 class="text-white font-semibold text-lg">${product.name}</h3>
                     </div>
                     <p class="text-gray-400 text-xs mb-2">${product.desc}</p>
                   </div>
                   <div class="flex items-center justify-between">
-                    <span class="text-white font-bold text-lg group-hover:text-orange-400 transition-colors">${formatRupiah(product.price)}</span>
+                    <span class="text-white font-bold text-lg">${formatRupiah(product.price)}</span>
                     <div class="flex items-center gap-2">
-                      <div class="flex items-center gap-1 bg-orange-500/20 text-orange-400 px-2 py-1 rounded-lg text-xs group-hover:bg-orange-500/30 transition-all-smooth">
+                      <div class="flex items-center gap-1 bg-orange-500/20 text-orange-400 px-2 py-1 rounded-lg text-xs">
                         <i data-lucide="layers" class="w-3.5 h-3.5"></i>
                         <span>Stok: ${product.stock}</span>
                       </div>
-                      <button class="bg-orange-500 text-white p-2 rounded-full hover-glow transition-all-smooth">
+                      <button class="bg-orange-500 text-white p-2 rounded-full">
                         <i data-lucide="plus" class="w-4 h-4"></i>
                       </button>
                     </div>
