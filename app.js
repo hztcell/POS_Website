@@ -52,13 +52,19 @@ function handleLogin(e) {
   const password = document.getElementById("password").value;
   const rememberMe = document.getElementById("rememberMe").checked;
   const errorDiv = document.getElementById("loginError");
-  const btnText = document.getElementById("btnText");
+  const loginBtn = document.getElementById("loginBtn");
+  const btnText = loginBtn.querySelector("span");
   const btnLoader = document.getElementById("btnLoader");
   const btnIcon = document.getElementById("btnIcon");
 
+  // 1. UI State: Loading
+  // Menonaktifkan tombol agar tidak klik ganda & mengubah visual
+  loginBtn.disabled = true;
+  loginBtn.classList.add("opacity-80", "cursor-not-allowed");
   btnText.textContent = "Memproses...";
   btnLoader.classList.remove("hidden");
   btnIcon.classList.add("hidden");
+  errorDiv.classList.add("hidden"); // Sembunyikan error sebelumnya jika ada
 
   setTimeout(() => {
     const user = users.find(
@@ -66,6 +72,12 @@ function handleLogin(e) {
     );
 
     if (user) {
+      // 2. UI State: Success
+      btnText.textContent = "Berhasil!";
+      btnLoader.classList.add("hidden");
+      // Memberikan feedback visual sukses sebelum pindah halaman
+      loginBtn.classList.replace("bg-gradient-to-r", "bg-green-600");
+
       currentUser = user;
       if (rememberMe) {
         localStorage.setItem("posUser", user.username);
@@ -77,19 +89,26 @@ function handleLogin(e) {
         localStorage.removeItem("posRemember");
       }
 
-      showMainApp(user);
+      // Beri sedikit delay agar user sempat melihat pesan "Berhasil!"
+      setTimeout(() => showMainApp(user), 800);
     } else {
-      errorDiv.classList.remove("hidden");
+      // 3. UI State: Error
+      loginBtn.disabled = false;
+      loginBtn.classList.remove("opacity-80", "cursor-not-allowed");
       btnText.textContent = "Masuk";
       btnLoader.classList.add("hidden");
       btnIcon.classList.remove("hidden");
 
-      errorDiv.parentElement.classList.add("animate-pulse");
+      // Menampilkan error dengan animasi halus
+      errorDiv.classList.remove("hidden");
+      errorDiv.classList.add("animate-shake"); // Pastikan class shake ada di CSS Anda
+
+      // Hapus animasi shake setelah selesai agar bisa diulang jika error lagi
       setTimeout(() => {
-        errorDiv.parentElement.classList.remove("animate-pulse");
+        errorDiv.classList.remove("animate-shake");
       }, 500);
     }
-  }, 1000);
+  }, 1200); // Sedikit lebih lama agar transisi loading terasa "mahal"
 }
 
 function showMainApp(user) {

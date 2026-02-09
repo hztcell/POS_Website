@@ -234,14 +234,29 @@
             </button>
           </div>
 
+          <div
+            id="loginError"
+            class="hidden animate-shake bg-red-500/5 backdrop-blur-md border border-red-500/20 text-red-400 px-4 py-3.5 rounded-xl text-sm flex items-center gap-3 shadow-[0_0_15px_rgba(239,68,68,0.1)]"
+          >
+            <div class="bg-red-500/20 p-1.5 rounded-lg">
+              <i data-lucide="alert-circle" class="w-4 h-4 flex-shrink-0"></i>
+            </div>
+            <span id="errorText" class="font-medium tracking-wide"
+              >Username atau password salah!</span
+            >
+          </div>
+
           <button
             type="button"
-            onclick="handleLogin(event)"
-            class="w-full bg-gradient-to-r from-[#BA984E] to-[#D4B570] hover:shadow-[0_10px_20px_-10px_rgba(186,152,78,0.5)] text-black font-bold py-4 rounded-xl transition-all duration-300 transform active:scale-[0.97] flex items-center justify-center gap-3 group mt-4"
+            id="loginBtn"
+            onclick="handleLogin()"
+            class="w-full bg-gradient-to-r from-[#BA984E] to-[#D4B570] hover:shadow-[0_10px_20px_-10px_rgba(186,152,78,0.5)] text-white font-bold py-4 rounded-xl transition-all duration-300 transform active:scale-[0.97] flex items-center justify-center gap-3 group mt-4"
           >
-            <span class="tracking-wide">MASUK</span>
+            <span id="btnText">MASUK</span>
+            <div id="btnLoader" class="loader hidden"></div>
             <i
               data-lucide="arrow-right"
+              id="btnIcon"
               class="w-5 h-5 transition-transform group-hover:translate-x-1"
             ></i>
           </button>
