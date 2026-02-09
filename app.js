@@ -145,13 +145,19 @@ function togglePassword() {
 }
 
 function toggleRemember(checkbox) {
-  const container = document.getElementById("remember-icon-container");
-  const isChecked = checkbox.checked;
+  const iconUnchecked = document.getElementById("icon-unchecked");
+  const iconChecked = document.getElementById("icon-checked");
+  const labelText = checkbox.closest("label").querySelector("span");
 
-  container.innerHTML = isChecked
-    ? '<i data-lucide="circle-check-big" class="w-5 h-5 text-orange-500"></i>'
-    : '<i data-lucide="circle" class="w-5 h-5 text-gray-500"></i>';
-
+  if (checkbox.checked) {
+    iconUnchecked.classList.add("hidden");
+    iconChecked.classList.remove("hidden");
+    labelText.classList.replace("text-gray-400", "text-[#BA984E]"); // Opsional: teks jadi emas saat terpilih
+  } else {
+    iconUnchecked.classList.remove("hidden");
+    iconChecked.classList.add("hidden");
+    labelText.classList.replace("text-[#BA984E]", "text-gray-400");
+  }
   lucide.createIcons();
 }
 
