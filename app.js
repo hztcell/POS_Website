@@ -72,12 +72,6 @@ function handleLogin(e) {
     );
 
     if (user) {
-      // 2. UI State: Success
-      btnText.textContent = "Berhasil!";
-      btnLoader.classList.add("hidden");
-      // Memberikan feedback visual sukses sebelum pindah halaman
-      loginBtn.classList.replace("bg-gradient-to-r", "bg-green-600");
-
       currentUser = user;
       if (rememberMe) {
         localStorage.setItem("posUser", user.username);
