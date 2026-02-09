@@ -357,14 +357,17 @@ const formatRupiah = (num) => {
 
 function toggleCart() {
   cartOpen = !cartOpen;
+  const togglebtn = document.getElementById("toggleCartButton");
   const sidebar = document.getElementById("cartSidebar");
   const mainContent = document.getElementById("mainContent");
 
   if (cartOpen) {
+    togglebtn.classList.add("hidden");
     sidebar.classList.remove("hidden");
     sidebar.classList.add("flex");
     mainContent.classList.add("lg:mr-[420px]");
   } else {
+    togglebtn.classList.remove("hidden");
     sidebar.classList.add("hidden");
     sidebar.classList.remove("flex");
     mainContent.classList.remove("lg:mr-[420px]");
